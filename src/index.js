@@ -1,12 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import Button from "./Button";
+// import Button from "./Button";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <App />
-    <Button text="hellooo!" />
-  </React.StrictMode>
-);
+root.render(<App />);
