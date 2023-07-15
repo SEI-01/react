@@ -1,53 +1,36 @@
-import { useState, useEffect, useDeferredValue } from "react";
-
-import styles from "./App.module.css";
-
-function Hello() {
-  useEffect(() => {
-    console.log("hi:)");
-    return () => {
-      console.log("bye:(");
-    };
-  }, []);
-  return <div>hello world!</div>;
-}
+import { useState } from "react";
 
 function App() {
-  const [counter, setValue] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const onClick = () => setValue((prev) => prev + 1);
-  const onChange = (event) => setKeyword(event.target.value);
-  console.log("i run all the time");
-  useEffect(() => {
-    console.log("API LOADED");
-  }, []);
-  useEffect(() => {
-    console.log("present counter is ", counter);
-  }, [counter]);
-  useEffect(() => {
-    console.log("I'm searching for ", keyword);
-  }, [keyword]);
-
-  const [showing, setShowing] = useState(false);
-  const controlShowing = () => setShowing((prev) => !prev);
-
+  const [toDo, setToDo] = useState("");
+  const [toDos, setToDos] = useState([]);
+  const onChange = (event) => setToDo(event.target.value);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (toDo === "") {
+      return;
+    } else {
+      setToDos((currentArray) => [toDo, ...currentArray]);
+      setToDo("");
+    }
+  };
   return (
     <div className="App">
-      <div>
-        {showing ? <Hello /> : null}
-        <button onClick={controlShowing}>
-          {showing ? "hide" : "showing!"}
-        </button>
-      </div>
-
-      <input
-        value={keyword}
-        onChange={onChange}
-        type="text"
-        placeholder="Search here!"
-      ></input>
-      <h1 className={styles.title}>{counter}</h1>
-      <button onClick={onClick}>Click me!</button>
+      <h1>My Todo List ({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChange}
+          value={toDo}
+          type="text"
+          placeholder="Write your to do"
+        ></input>
+        <button>Add to do</button>
+      </form>
+      <hr />
+      <ul>
+        {toDos.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
     </div>
   );
 }
