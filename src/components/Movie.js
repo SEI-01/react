@@ -3,11 +3,11 @@ import styles from "./Movie.module.css";
 
 import { Link } from "react-router-dom";
 
-function Movie({ id, title, coverImg, summary, rating, genres }) {
+function Movie({ id, url, title, coverImg, summary, rating, genres }) {
   return (
     <div className={styles.item}>
       <div>
-        <Link to={`/movie/${id}`}>
+        <Link to={url}>
           <img className={styles.img} alt={title} src={coverImg}></img>
         </Link>
       </div>
